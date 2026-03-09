@@ -144,8 +144,8 @@ export default function Home() {
                 <button
                   onClick={() => deleteTodo(todo.id)}
                   className="text-red-400
-                    hover:text-red-600 opacity-0
-                    group-hover:opacity-100"
+                    hover:text-red-600 sm:opacity-0
+                    sm:group-hover:opacity-100"
                 >
                   Delete
                 </button>
