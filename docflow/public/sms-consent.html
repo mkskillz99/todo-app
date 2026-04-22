@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS Opt-In — GRA Field Ops</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Segoe UI', Arial, sans-serif; background: #faf9f7; color: #1a1a1a; padding: 40px 20px 80px; }
+.page { max-width: 560px; margin: 0 auto; }
+.brand { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 8px; }
+h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+.sub { font-size: 15px; color: #666; margin-bottom: 32px; line-height: 1.5; }
+.card { background: #fff; border: 1px solid #e5e4e0; border-radius: 14px; padding: 28px; margin-bottom: 20px; }
+.card h2 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #1a1a1a; }
+label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #444; }
+input[type="tel"], input[type="text"] { width: 100%; padding: 12px 14px; border: 1px solid #e5e4e0; border-radius: 8px; font-size: 15px; margin-bottom: 16px; background: #faf9f7; }
+input:focus { outline: none; border-color: #E8943A; }
+.checkbox-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 16px; }
+.checkbox-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: #E8943A; }
+.checkbox-row span { font-size: 13px; color: #555; line-height: 1.5; }
+.checkbox-row a { color: #E8943A; }
+.submit-btn { width: 100%; background: #E8943A; color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 700; cursor: pointer; }
+.submit-btn:hover { background: #d4832e; }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+.disclosures { font-size: 12px; color: #999; line-height: 1.6; margin-top: 12px; }
+.divider { text-align: center; font-size: 13px; color: #aaa; margin: 20px 0; }
+.keyword-box { background: #f2f1ee; border-radius: 10px; padding: 16px 20px; }
+.keyword-box p { font-size: 13px; color: #666; line-height: 1.6; }
+.keyword-box strong { color: #1a1a1a; font-size: 15px; }
+.success { display: none; background: rgba(58,157,94,0.08); border: 1px solid rgba(58,157,94,0.25); border-radius: 10px; padding: 20px; text-align: center; }
+.success h3 { color: #3a9d5e; font-size: 18px; margin-bottom: 6px; }
+.success p { font-size: 14px; color: #555; }
+.footer { margin-top: 40px; font-size: 12px; color: #bbb; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brand">Gar Rector and Associates · GRA Field Ops</div>
+  <h1>SMS Work Notifications</h1>
+  <p class="sub">Sign up to receive work-related SMS notifications including schedules, timecard reminders, and job cost confirmations.</p>
+
+  <div class="card" id="form-card">
+    <h2>Employee Opt-In</h2>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" placeholder="Jorge Ortiz" />
+
+    <label for="phone">Mobile Phone Number</label>
+    <input type="tel" id="phone" placeholder="+1 (707) 555-0001" />
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="consent" onchange="toggleBtn()" />
+      <span>By checking this box, I authorize Gar Rector and Associates to send me work-related SMS text messages at the number provided, including schedules, timecard reminders, and job cost confirmations. Message and data rates may apply. Message frequency varies. Consent is not a condition of employment. I can reply <strong>STOP</strong> to unsubscribe at any time. See <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-and-conditions.html">Terms</a>.</span>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" disabled onclick="handleSubmit()">Enroll in GRA Field Ops SMS</button>
+
+    <p class="disclosures">
+      Message and data rates may apply. Message frequency varies based on work activity.
+      Reply <strong>STOP</strong> to unsubscribe. Reply <strong>HELP</strong> for help.
+      <a href="privacy-policy.html" style="color:#E8943A;">Privacy Policy</a> ·
+      <a href="terms-and-conditions.html" style="color:#E8943A;">Terms & Conditions</a>
+    </p>
+  </div>
+
+  <div class="success" id="success-card">
+    <h3>✅ You're enrolled!</h3>
+    <p>You'll receive a confirmation text shortly from +1 (707) 737-9773. Reply STOP at any time to unsubscribe.</p>
+  </div>
+
+  <div class="divider">— or —</div>
+
+  <div class="keyword-box">
+    <p>You can also opt in by texting:</p>
+    <p style="margin-top:8px;"><strong>START</strong> to <strong>+1 (707) 737-9773</strong></p>
+    <p style="margin-top:8px; font-size:12px; color:#aaa;">You'll receive a confirmation message. Reply STOP to unsubscribe at any time. Message and data rates may apply.</p>
+  </div>
+
+  <div class="footer">
+    GRA Field Ops · Gar Rector and Associates · Napa Valley, CA<br>
+    Operated by MKS Ventures · <a href="privacy-policy.html" style="color:#bbb;">Privacy</a> · <a href="terms-and-conditions.html" style="color:#bbb;">Terms</a>
+  </div>
+</div>
+
+<script>
+function toggleBtn() {
+  const cb = document.getElementById('consent');
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = !cb.checked;
+}
+
+function handleSubmit() {
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  document.getElementById('form-card').style.display = 'none';
+  document.getElementById('success-card').style.display = 'block';
+}
+</script>
+</body>
+</html>
